@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :set_post, only: [:show, :update, :edit]
+  before_action :set_post, only: [:show, :update, :edit, :destroy]
   
   def new
     @post = Post.new
@@ -9,10 +9,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
-      flash[:success] = "post was saved"
       redirect_to posts_path
     else
-      flash.now[:danger] = "There was a problem and the post was not saved"
       render :new
     end
   end
@@ -22,12 +20,15 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(@post_params)
-      flash[:success] = "post was saved"
-      redirect_to post_path(@post)
+      redirect_to posts_path
     else
-      flash.now[:danger] = "There was a problem and the post was not saved"
       render :edit
     end
+  end
+
+  def destroy
+    @post.destroy
+    redirect_to posts_path
   end
 
   private

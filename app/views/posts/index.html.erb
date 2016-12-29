@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <h2>Posts</h2>
+    <%= form_for(Post.new) do |f| %>
+      <%= f.bootsy_area :body, class: "form-control", rows: 10 %>
+      <div class="row">
+        <%= f.submit "Create Post", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<br>
+<hr>
+<% Post.all.each do |post| %>
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+      <div class="well">
+        <%= post.body.html_safe %>
+      </div>
+    </div>
+  </div>
+<% end %>
